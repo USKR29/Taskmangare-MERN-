@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+body {
+    background-color:aliceblue;
+    padding: 2rem;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
