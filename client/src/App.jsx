@@ -5,6 +5,7 @@ import Create from './Components/Create'
 import Userpage from './pages/Userpage'
 import Mainlayout from './layouts/Mainlayout'
 import Authlayout from './layouts/Authlayout'
+import LoginPage from './pages/loginPage'
 function App() {
 
 
@@ -21,7 +22,8 @@ function App() {
         <Route path='/create' Component={Create}/>
         </Route>
         <Route element={<Authlayout/>}>
-        <Route path='/login' Component={Userpage}/>
+        <Route path='/signup' Component={Userpage}/>
+        <Route path='/login' Component={LoginPage}/>
         </Route>
         </Routes>
         </div>
