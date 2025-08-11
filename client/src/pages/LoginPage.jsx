@@ -1,12 +1,15 @@
 import js from '@eslint/js';
-import React, { useState } from 'react'
+import React, {useContext, useState } from 'react'
 import { data } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthContent';
 
 const LoginPage = () => {
 
       const[email,setEmail]=useState('');
     
       const [password,setPassword]=useState('');
+
+      const {dispatch} = useContext(AuthContext);
     
     
     const handlelogin=async(e)=>{
@@ -23,7 +26,9 @@ const LoginPage = () => {
       }
       return res.json();
     }).then((data)=>{
-      localStorage.setItem('token',data.token);
+      
+      localStorage.setItem('token',JSON.stringify(data));
+      dispatch({type:'LOGIN',payload:data})
       
     }).catch((err)=>{
       res.status(404).json({msg:err.message})

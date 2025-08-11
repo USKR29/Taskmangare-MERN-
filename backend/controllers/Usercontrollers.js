@@ -10,13 +10,13 @@ const stoken =(_id)=>{
 
 const signupUser = async(req, res)=>{
 
-    const {email, password} = req.body;
+    const {name, email, password} = req.body;
 
     const hasedpassword = await bcrypt.hash(password,10);
 
     try{
 
-        const data = await Usermodel.create({email, password: hasedpassword})
+        const data = await Usermodel.create({name, email, password: hasedpassword})
         res.status(200).json({msg:"User created successfully"})
         
     }catch(err){
@@ -26,7 +26,7 @@ const signupUser = async(req, res)=>{
 
 const loginUser = async(req, res)=>{
 
-    const {email, password} = req.body;
+    const {name, email, password} = req.body;
 
     try{
 
@@ -47,7 +47,7 @@ const loginUser = async(req, res)=>{
 
         const newtoken = stoken(user._id)
 
-        res.status(200).json({token: newtoken});
+        res.status(200).json({token: newtoken, name: user.name});
         
 
     }catch(err){

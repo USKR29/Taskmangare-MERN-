@@ -3,13 +3,15 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Userpage = () => {
 
+  const[name, setName]=useState('');
+
   const[email,setEmail]=useState('');
 
   const [password,setPassword]=useState('');
 
   const handleClick=(e)=>{
 
-    const user = {email, password}
+    const user = {name, email, password}
 
     e.preventDefault();
 
@@ -19,7 +21,7 @@ const Userpage = () => {
       body:JSON.stringify(user)
     }).then((res)=>(
       res.ok ? res.json() : Promise.reject(
-        toast.error('User already exists, please login instead')
+        toast.error('Failed to create user, please try again')
       )
      
     )).then(()=>{
@@ -36,6 +38,8 @@ const Userpage = () => {
     <div className=" felx bg-white rounded-md p-4">
         <ToastContainer/>
         <form className=' flex flex-col gap-4  w-96 h-3/4'>
+          <label htmlFor='Email'>Username</label>
+            <input className="border-1 border-sky-200 rounded-lg p-4" type='text' required={true} value={name} onChange={(e)=>{setName(e.target.value)}}/>
             <label htmlFor='Email'>Email</label>
             <input className="border-1 border-sky-200 rounded-lg p-4" type='text' required={true} value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
             <label htmlFor='password'>Password:</label>

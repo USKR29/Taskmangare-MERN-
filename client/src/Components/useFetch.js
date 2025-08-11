@@ -15,10 +15,11 @@ const useFetch=(url)=>{
       throw Error('Unable to fetch the data');
       setLoading(false)
     }  
-       return res.json();
+
+    return res.json();
   
-  }).then((data)=>{
-    setData(data)
+  }).then((details)=>{
+    setData(details)
     setLoading(false)
   }).catch((err)=>{
     setError(err.message);
@@ -26,7 +27,7 @@ const useFetch=(url)=>{
   });
    
 
- },[url,data])
+ },[url])
  
   return {data, isloading, error}
 }
