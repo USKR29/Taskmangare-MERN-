@@ -2,8 +2,11 @@ import js from '@eslint/js';
 import React, {useContext, useState } from 'react'
 import { data } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContent';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+
+  const navigate = useNavigate();
 
       const[email,setEmail]=useState('');
     
@@ -28,7 +31,8 @@ const LoginPage = () => {
     }).then((data)=>{
       
       localStorage.setItem('token',JSON.stringify(data));
-      dispatch({type:'LOGIN',payload:data})
+      dispatch({type:'LOGIN',payload:data});
+      navigate('/');
       
     }).catch((err)=>{
       res.status(404).json({msg:err.message})

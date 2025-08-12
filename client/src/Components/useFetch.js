@@ -11,9 +11,16 @@ const useFetch=(url)=>{
     
 
  useEffect(()=>{
- 
 
-  fetch(url).then((res)=>{
+  const user = localStorage.getItem('token');
+  const token = user ? JSON.parse(user).token: null;
+
+  fetch(url,{
+    headers:{
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${token} `
+    }
+  }).then((res)=>{
     if(!res.ok)
     {
       throw Error('Unable to fetch the data');

@@ -8,6 +8,7 @@ const Sidebar = () => {
 
   const handleClick=()=>{
     logout();
+    
    
   }
 

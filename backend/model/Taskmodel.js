@@ -27,6 +27,10 @@ const taskschema = new Schema ({
         type: Boolean,
         require: true,
     },
+    user_id:{
+       type: String,
+       require: true,
+    }
 
 },{timestamps:true})
 

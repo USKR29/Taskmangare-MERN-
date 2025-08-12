@@ -4,6 +4,10 @@ import {ToastContainer, toast} from 'react-toastify';
 
 const Create = () => {
 
+  const user = localStorage.getItem('token')
+
+  const token = user ? JSON.parse(user).token : null
+
   const handleclick =(e)=>{
 
     e.preventDefault();
@@ -16,7 +20,10 @@ const Create = () => {
 
     fetch('/api',{
       method: 'POST',
-      headers:{'content-type':'application/json'},
+      headers:{
+        'content-type':'application/json',
+        'authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(task)
     }).then((res)=>{
       if(!res.ok){

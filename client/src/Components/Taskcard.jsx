@@ -8,13 +8,19 @@ import { TaskContext } from '../Context/TaskContext';
 
 const Taskcard = ({data}) => {
 
+  const user = localStorage.getItem('token')
+  const token = user? JSON.parse(user).token: null;
+
   const {setTasks}=useContext(TaskContext)
 
  const handleclick=(id)=>{
 
     fetch(`api/${id}`,{
       method: 'PATCH',
-      headers: {'Content-Type':'application/json'},
+      headers: {
+        'Content-Type':'application/json',
+        'authorization': `Bearer ${token}`
+      },
       body:JSON.stringify({completed:true,'status':'Completed'})
     }).then((res)=>{
       if(!res.ok){
@@ -34,6 +40,10 @@ const Taskcard = ({data}) => {
     
     fetch(`/api/${id}`,{
       method: 'DELETE',
+      headers:{
+        'Content-Type':'application/json',
+        'authorization': `Bearer ${token}`
+      }
     }).then((res)=>{
       toast.success('Deleted')
       setTasks((prevTasks)=>prevTasks.filter((task)=>task._id !== id));

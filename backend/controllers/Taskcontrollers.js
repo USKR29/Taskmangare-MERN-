@@ -6,7 +6,8 @@ const taskmod = require('../model/Taskmodel.js')
 const createPost = async(req,res)=>{
      const{name,description,priority,duetime,status, completed}=req.body
         try{
-            const data = await taskmod.create({name, description, priority, duetime, status, completed})
+            const user_id = req.user._id
+            const data = await taskmod.create({name, description, priority, duetime, status, completed, user_id})
             res.status(200).json(data)
         }catch(err){
     
@@ -19,8 +20,10 @@ const createPost = async(req,res)=>{
 
 const getallPosts =async(req,res)=>{
 
+    const user_id = req.user._id;
+
     try{
-        const data = await taskmod.find({})
+        const data = await taskmod.find({user_id}).sort({createdAt:-1})
         res.status(200).json(data)
     }catch(err){
 
