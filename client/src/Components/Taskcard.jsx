@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import TimeIcon from '../assets/time.svg';
 import del from '../assets/deleteIcon.svg';
 import done from '../assets/done.svg';
 import { toast, ToastContainer } from 'react-toastify';
+import { TaskContext } from '../Context/TaskContext';
+
 
 const Taskcard = ({data}) => {
+
+  const {setTasks}=useContext(TaskContext)
 
  const handleclick=(id)=>{
 
@@ -18,8 +22,9 @@ const Taskcard = ({data}) => {
       }
       return res.json()
       
-    }).then((da)=>{
-      console.log(da)
+    }).then((res)=>{
+    setTasks((prevTasks)=>prevTasks.map((task)=>task._id === id ? {...task, completed: true, status: 'Completed'}: task));
+      
     }).catch((Error)=>{
       console.log(Error)
     })
@@ -29,17 +34,27 @@ const Taskcard = ({data}) => {
     
     fetch(`/api/${id}`,{
       method: 'DELETE',
-    }).then(()=>{
+    }).then((res)=>{
       toast.success('Deleted')
+      setTasks((prevTasks)=>prevTasks.filter((task)=>task._id !== id));
       
     })
+
+  }
+
+  const dataexists =()=>{
+
+    if(data.length === 0){
+      return<div className='p-4 text-4xl text-red-400'>No new task available </div>
+    }
 
   }
 
   return (
     <div>  
       <ToastContainer/>
-         {data.map((item)=>{
+      {dataexists(data)}
+        {data.map((item)=>{
         return <div className={item.completed?'bg-white border-2 border-red-200 m-2 p-4 rounded-3xl shadow-md': 'bg-white border-2 border-teal-200 m-2 p-4 rounded-3xl'} key={item._id}>
           <div className=' uppercase text-blue-800'>{item.name}</div>
           <div>Task: <span className='text-purple-600'>{item.description}</span></div>
@@ -54,7 +69,7 @@ const Taskcard = ({data}) => {
            
           </div>
        })
-       }
+       } 
       
     </div>
     

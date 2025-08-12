@@ -12,7 +12,8 @@ function Header() {
         <Link to={'/'}><div className='text-green-700'>LOGO</div></Link>
         <div className='flex gap-2 justify-between items-center'>
           <div>Menu</div>
-           <div id='profile' className='flex items-center justify-center rounded-full border-2 border-sky-300 w-8 h-8'>{user?.name}</div>
+          { user? (<div id='profile' className='flex items-center justify-center rounded-full border-2 border-sky-300 w-8 h-8'>{user.name}</div>): (<div><Link to={'/login'}>login</Link></div>)}
+           
         </div>
     </div>
   )

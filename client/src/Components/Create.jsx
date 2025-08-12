@@ -39,7 +39,7 @@ const Create = () => {
 
   const[name,setName] = useState('')
   const[description,setDescriptioin] = useState('')
-  const[priority,setPriority] = useState('Select')
+  const[priority,setPriority] = useState('High')
   const[duetime,setDuetime] = useState('')
   return (
     <div className=' h-screen '>

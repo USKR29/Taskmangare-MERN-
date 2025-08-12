@@ -21,10 +21,10 @@ export const AuthContextProvider =({ children })=>{
 
     useEffect(()=>{
 
-        const user = JSON.parse(localStorage.getItem('token'));
+        const user = localStorage.getItem('token');
 
         if(user){
-            dispatch({type: 'LOGIN', payload: user})
+            dispatch({type: 'LOGIN', payload: JSON.parse(user)})
         }
     },[]);
 
